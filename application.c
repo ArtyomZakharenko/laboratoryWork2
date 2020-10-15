@@ -1,39 +1,51 @@
 #include <stdio.h>
 
-int
-main ()
+void FillArray (int *, int);
+void ShowArray (int *, int);
+int SearchingMaxElement (int *, int);
+
+int main()
 {
-  int i, j;
-  const int size = 3;
-  int array[3][3] = { {1, 2, 3}, {4, 5, 6}, {10, 8, 9} };
-
-  for (i = 0; i < size; i++)
-    {
-      for (j = 0; j < size; j++)
-	{
-	  printf ("%2d", array[i][j]);
-	}
-      printf ("\n");
-    }
-  int maxElement = array[0][0];
-  for (i = 1; i < size; i++)
-    {
-      if (maxElement < array[i][i])
-	{
-	  maxElement = array[i][i];
-	}
-    }
-
-  for (i = 1; i < size; i++)
-    {
-      for (j = 0; j < i; j++)
-	{
-	  if (array[i][j] > maxElement)
-	    {
-	      printf ("%d", array[i][j]);
-	    }
-	}
-    }
-  printf ("%d", maxElement);
+    int size, maxElement;
+    printf("Enter size of matrix: ");
+    scanf("%d", &size);
+    int array[size][size];
+ 
+    FillArray(array, size);
+    ShowArray(array, size);
+    maxElement = SearchingMaxElement(array, size);
+    
   return 0;
+}
+
+void FillArray (int *arr, int length){
+    int i, j;
+    printf("Fill matrix:\n");
+    for (i = 0; i < length; i++){
+        for (j = 0; j < length; j++){
+            printf("Row %d, element %d: ", i+1, j+1);
+            scanf("%d", arr+i*length+j);
+        }
+    }
+}   
+void ShowArray(int *arr, int length){
+    int i, j;
+    printf("your matrix:\n");
+    for (i = 0; i < length; i++){
+        for (j = 0; j < length; j++){
+            printf("%4d", *(arr+i*length+j));
+        }
+        printf("\n");
+    }
+}
+
+int SearchingMaxElement (int *arr, int length){
+    int i;
+    int maxValue = *arr;
+    for (i = 1; i < length; i++){
+        if (maxValue < *(arr+i*length+i)){
+            maxValue = *(arr+i*length+i);
+        }
+    }
+    return maxValue;
 }
